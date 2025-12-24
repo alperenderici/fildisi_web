@@ -317,7 +317,7 @@ abstract class AppLocalizations {
   /// No description provided for @footerBuiltBy.
   ///
   /// In en, this message translates to:
-  /// **'© 2025 Fildişi. Designed & Developed by Ali Alperen Derici'**
+  /// **'© 2025 Fildişi. Powered by AAD'**
   String get footerBuiltBy;
 
   /// No description provided for @footerTwitter.

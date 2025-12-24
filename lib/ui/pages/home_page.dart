@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
 
           // Featured Products Section
           Container(
-            color: Colors.white,
+            color: theme.colorScheme.surface,
             padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
             child: Center(
               child: ConstrainedBox(
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       l10n.brandSubtitle,
                       style: theme.textTheme.bodyLarge?.copyWith(
-                        color: Colors.grey[600],
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -136,7 +136,7 @@ class _HeroContent extends StatelessWidget {
           l10n.homeDescription,
           style: theme.textTheme.bodyLarge?.copyWith(
             fontSize: 18,
-            color: Colors.black87,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 32),
@@ -219,7 +219,7 @@ class _ProductCard extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -228,7 +228,7 @@ class _ProductCard extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16),
               child: Text(
@@ -318,9 +318,9 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -339,7 +339,7 @@ class _InfoCard extends StatelessWidget {
           Text(
             body,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[700],
+              color: theme.colorScheme.onSurfaceVariant,
             ),
             textAlign: TextAlign.center,
           ),

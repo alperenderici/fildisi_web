@@ -36,17 +36,17 @@ class AppFooter extends StatelessWidget {
                   IconButton(
                     tooltip: l10n.footerTwitter,
                     onPressed: () => _openUrl(context, AppLinks.twitter),
-                    icon: const FaIcon(FontAwesomeIcons.xTwitter, size: 18),
+                    icon: const FaIcon(FontAwesomeIcons.xTwitter, size: 24),
                   ),
                   IconButton(
                     tooltip: l10n.footerLinkedIn,
                     onPressed: () => _openUrl(context, AppLinks.linkedIn),
-                    icon: const FaIcon(FontAwesomeIcons.linkedinIn, size: 18),
+                    icon: const FaIcon(FontAwesomeIcons.linkedinIn, size: 24),
                   ),
                   IconButton(
                     tooltip: l10n.footerInstagram,
                     onPressed: () => _openUrl(context, AppLinks.instagram),
-                    icon: const FaIcon(FontAwesomeIcons.instagram, size: 18),
+                    icon: const FaIcon(FontAwesomeIcons.instagram, size: 24),
                   ),
                 ],
               ),

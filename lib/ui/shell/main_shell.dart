@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
 
 import '../controllers/locale_controller.dart';
+import '../controllers/theme_controller.dart';
 import '../widgets/app_footer.dart';
 
 class MainShell extends StatelessWidget {
@@ -31,14 +32,48 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final localeController = Get.find<LocaleController>();
+    final themeController = Get.find<ThemeController>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWide = constraints.maxWidth >= 900;
         final logoHeight = isWide ? 80.0 : 64.0;
+        final theme = Theme.of(context);
+        final colorScheme = theme.colorScheme;
+        final isDark = theme.brightness == Brightness.dark;
+
+        final appBarGradient = LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [
+                  colorScheme.surface,
+                  colorScheme.primary.withValues(alpha: 0.12),
+                  colorScheme.tertiary.withValues(alpha: 0.15),
+                  colorScheme.secondary.withValues(alpha: 0.08),
+                  colorScheme.primary.withValues(alpha: 0.10),
+                  colorScheme.surface.withValues(alpha: 0.95),
+                ]
+              : [
+                  colorScheme.surface,
+                  colorScheme.primary.withValues(alpha: 0.04),
+                  colorScheme.tertiary.withValues(alpha: 0.06),
+                  colorScheme.secondary.withValues(alpha: 0.03),
+                  colorScheme.primary.withValues(alpha: 0.05),
+                  colorScheme.surface.withValues(alpha: 0.98),
+                ],
+          stops: const [0.0, 0.25, 0.45, 0.65, 0.85, 1.0],
+        );
 
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            flexibleSpace: DecoratedBox(
+              decoration: BoxDecoration(gradient: appBarGradient),
+              child: const SizedBox.expand(),
+            ),
             titleSpacing: 24,
             toolbarHeight: isWide ? 90 : 70,
             title: InkWell(
@@ -83,6 +118,19 @@ class MainShell extends StatelessWidget {
                         ),
                       ],
                       icon: const Icon(Icons.language),
+                    ),
+                    Obx(
+                      () => IconButton(
+                        tooltip: themeController.isDark
+                            ? 'Light theme'
+                            : 'Dark theme',
+                        onPressed: themeController.toggle,
+                        icon: Icon(
+                          themeController.isDark
+                              ? Icons.light_mode_outlined
+                              : Icons.dark_mode_outlined,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
                   ]
@@ -131,6 +179,26 @@ class MainShell extends StatelessWidget {
                             localeController.setEnglish();
                             Navigator.of(context).pop();
                           },
+                        ),
+                        const Divider(height: 24),
+                        Obx(
+                          () => SwitchListTile(
+                            value: themeController.isDark,
+                            onChanged: (_) {
+                              themeController.toggle();
+                              Navigator.of(context).pop();
+                            },
+                            title: Text(
+                              themeController.isDark
+                                  ? 'Light theme'
+                                  : 'Dark theme',
+                            ),
+                            secondary: Icon(
+                              themeController.isDark
+                                  ? Icons.light_mode_outlined
+                                  : Icons.dark_mode_outlined,
+                            ),
+                          ),
                         ),
                       ],
                     ),

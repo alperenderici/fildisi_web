@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:fildisi_web/l10n/app_localizations.dart';
 
@@ -134,9 +133,9 @@ class _ContactInfo extends StatelessWidget {
             width: double.infinity,
             margin: const EdgeInsets.only(top: 16),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
+              color: theme.colorScheme.surfaceVariant,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey.shade300),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             child: Material(
               color: Colors.transparent,
@@ -153,7 +152,10 @@ class _ContactInfo extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Colors.grey.shade200, Colors.grey.shade300],
+                          colors: [
+                            theme.colorScheme.surfaceVariant,
+                            theme.colorScheme.surface,
+                          ],
                         ),
                       ),
                     ),
@@ -234,7 +236,7 @@ class _ContactCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: theme.colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,7 +260,9 @@ class _ContactCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             content,
-            style: theme.textTheme.bodyLarge?.copyWith(color: Colors.black87),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurface,
+            ),
           ),
           if (extraContent != null) extraContent!,
           const SizedBox(height: 20),

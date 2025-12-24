@@ -166,8 +166,8 @@ class GalleryPage extends StatelessWidget {
                           onSelected: (_) => controller.selectCategory(i),
                           labelStyle: TextStyle(
                             color: i == selected
-                                ? Colors.white
-                                : theme.colorScheme.primary,
+                                ? theme.colorScheme.onPrimary
+                                : theme.colorScheme.onSurface,
                             fontWeight: FontWeight.w600,
                           ),
                           selectedColor: theme.colorScheme.primary,

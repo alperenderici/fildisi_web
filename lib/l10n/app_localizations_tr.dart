@@ -122,8 +122,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get footerSocial => 'Sosyal';
 
   @override
-  String get footerBuiltBy =>
-      '© 2025 Fildişi. Designed & Developed by Ali Alperen Derici';
+  String get footerBuiltBy => '© 2025 Fildişi. Powered by AAD';
 
   @override
   String get footerTwitter => 'Twitter';

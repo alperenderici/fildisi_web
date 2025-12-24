@@ -6,79 +6,90 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'router/app_router.dart';
 import 'ui/controllers/locale_controller.dart';
+import 'ui/controllers/theme_controller.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
 
 class FildisiApp extends StatelessWidget {
   const FildisiApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final router = createAppRouter();
-    final localeController = Get.put(LocaleController());
-
+  ThemeData _buildTheme({required Brightness brightness}) {
     // Premium Chocolate Palette
     const primaryColor = Color(0xFF3E2723); // Deep Chocolate
     const secondaryColor = Color(0xFFD7CCC8); // Light Cocoa
     const accentColor = Color(0xFFC5A059); // Muted Gold
-    const surfaceColor = Color(0xFFFAFAFA); // Off-white
-    const scaffoldColor = Color(0xFFFFFFFF); // Pure White
+    const lightSurfaceColor = Color(0xFFFAFAFA); // Off-white
+    const lightScaffoldColor = Color(0xFFFFFFFF); // Pure White
 
-    final base = ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        primary: primaryColor,
-        secondary: secondaryColor,
-        tertiary: accentColor,
-        surface: surfaceColor,
-        brightness: Brightness.light,
-      ),
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: brightness,
+      // Preserve the current light palette exactly; let dark derive sensible
+      // contrast values from the seed.
+      primary: brightness == Brightness.light ? primaryColor : null,
+      secondary: brightness == Brightness.light ? secondaryColor : null,
+      tertiary: brightness == Brightness.light ? accentColor : null,
+      surface: brightness == Brightness.light ? lightSurfaceColor : null,
     );
 
-    final theme = base.copyWith(
-      scaffoldBackgroundColor: scaffoldColor,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: scaffoldColor,
+    final base = ThemeData(useMaterial3: true, colorScheme: colorScheme);
+
+    final scaffoldBackgroundColor = brightness == Brightness.light
+        ? lightScaffoldColor
+        : colorScheme.surface;
+
+    final appBarBackgroundColor = brightness == Brightness.light
+        ? lightScaffoldColor
+        : colorScheme.surface;
+
+    final textTheme = GoogleFonts.manropeTextTheme(base.textTheme);
+    final headlineColor = brightness == Brightness.light
+        ? primaryColor
+        : colorScheme.onSurface;
+
+    return base.copyWith(
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      appBarTheme: AppBarTheme(
+        backgroundColor: appBarBackgroundColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: primaryColor),
+        iconTheme: IconThemeData(color: colorScheme.onSurface),
       ),
-      textTheme: GoogleFonts.manropeTextTheme(base.textTheme).copyWith(
+      textTheme: textTheme.copyWith(
         displayLarge: GoogleFonts.playfairDisplay(
           textStyle: base.textTheme.displayLarge,
           fontWeight: FontWeight.w700,
-          color: primaryColor,
+          color: headlineColor,
         ),
         displayMedium: GoogleFonts.playfairDisplay(
           textStyle: base.textTheme.displayMedium,
           fontWeight: FontWeight.w700,
-          color: primaryColor,
+          color: headlineColor,
         ),
         headlineLarge: GoogleFonts.playfairDisplay(
           textStyle: base.textTheme.headlineLarge,
           fontWeight: FontWeight.w700,
-          color: primaryColor,
+          color: headlineColor,
         ),
         headlineMedium: GoogleFonts.playfairDisplay(
           textStyle: base.textTheme.headlineMedium,
           fontWeight: FontWeight.w700,
-          color: primaryColor,
+          color: headlineColor,
         ),
         titleLarge: GoogleFonts.playfairDisplay(
           textStyle: base.textTheme.titleLarge,
           fontWeight: FontWeight.w600,
-          color: primaryColor,
+          color: headlineColor,
         ),
         bodyLarge: GoogleFonts.manrope(
           textStyle: base.textTheme.bodyLarge,
-          color: Colors.black87,
+          color: colorScheme.onSurface,
           height: 1.6,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -90,8 +101,8 @@ class FildisiApp extends StatelessWidget {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: primaryColor,
-          side: const BorderSide(color: primaryColor, width: 1.5),
+          foregroundColor: colorScheme.primary,
+          side: BorderSide(color: colorScheme.primary, width: 1.5),
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           textStyle: GoogleFonts.manrope(
@@ -102,13 +113,24 @@ class FildisiApp extends StatelessWidget {
       ),
       cardTheme: CardThemeData(
         elevation: 0,
-        color: surfaceColor,
+        color: colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Colors.grey.shade200),
+          side: BorderSide(color: colorScheme.outlineVariant),
         ),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final router = createAppRouter();
+    final localeController = Get.put(LocaleController());
+
+    final themeController = Get.put(ThemeController());
+
+    final theme = _buildTheme(brightness: Brightness.light);
+    final darkTheme = _buildTheme(brightness: Brightness.dark);
 
     return Obx(
       () => MaterialApp.router(
@@ -124,6 +146,8 @@ class FildisiApp extends StatelessWidget {
         ),
         routerConfig: router,
         theme: theme,
+        darkTheme: darkTheme,
+        themeMode: themeController.themeMode.value,
         locale: localeController.locale.value,
         supportedLocales: const [Locale('tr'), Locale('en')],
         localizationsDelegates: [
