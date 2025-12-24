@@ -1,0 +1,56 @@
+{
+  "@@locale": "tr",
+
+  "appTitle": "Fildişi Çikolata & Makaron Atölyesi",
+  "brandSubtitle": "Chocolate shop",
+
+  "navAbout": "Hakkında",
+  "navGallery": "Galeri",
+  "navContact": "İletişim",
+  "navMenu": "Menü",
+
+  "homeHeadline": "Fildişi Çikolata ve Makaron Atölyesi",
+  "homeDescription": "El yapımı çikolata, bonbon, makaron ve tatlılar. Kemalpaşa/İzmir’de butik atölye.",
+
+  "ctaGallery": "Galeri",
+  "ctaContact": "İletişim",
+  "ctaAbout": "Hakkında",
+
+  "infoAddressTitle": "Adres",
+  "infoAddressBody": "Armutlu 85. Yıl Cumhuriyet, Armutlu Belediye Cd. No:45, 35737 Kemalpaşa/İzmir",
+  "infoPhoneTitle": "Telefon",
+  "infoPhoneBody": "0534 820 48 89",
+  "infoHoursTitle": "Çalışma Saatleri",
+  "infoHoursShort": "Pazartesi–Cumartesi: 12:00–21:00\nPazar: Kapalı",
+
+  "aboutTitle": "Hakkımızda",
+  "aboutBody": "Markamızın kurucusu Uğur Eskici, Amerika Birleşik Devletleri'nde aldığı profesyonel pastacılık ve çikolata eğitiminin ardından, doğduğu topraklara dönerek İzmir'in en iyi çikolata ve makaron atölyesini kurma hayalini gerçeğe dönüştürdü.\n\nFildişi Çikolata & Makaron Atölyesi'nde sunulan her ürün, şefimizin kendi elleriyle, büyük bir tutku ve titizlikle hazırlanmaktadır. Ürünlerimizde kullandığımız meyveleri yerel üreticilerden özenle seçiyor, hiçbir katkı maddesi kullanmadan en doğal haliyle sizlere sunuyoruz.\n\nKalite, doğallık ve lezzetin buluştuğu atölyemizde, her bir çikolata ve makaron, damaklarınızda unutulmaz bir iz bırakmak için tasarlanmıştır.",
+  "hoursTitle": "Çalışma Saatleri",
+  "hoursLong": "Pazartesi: 12:00–21:00\nSalı: 12:00–21:00\nÇarşamba: 12:00–21:00\nPerşembe: 12:00–21:00\nCuma: 12:00–21:00\nCumartesi: 12:00–21:00\nPazar: Kapalı",
+
+  "socialTitle": "Sosyal Medya",
+  "instagramHandle": "@fildisiatolye",
+
+  "galleryTitle": "Galeri",
+  "galleryCategoryBonbon": "Bonbon & Trüf",
+  "galleryCategoryChocolate": "Çikolata",
+  "galleryCategoryMacaron": "Makaron",
+  "galleryCategoryDessert": "Tatlı",
+  "galleryCategoryShop": "Dükkân/Tezgâh",
+
+  "contactTitle": "İletişim",
+  "contactOpenOnMap": "Haritada Aç",
+  "contactCall": "Ara",
+  "contactOpenInstagram": "Instagram’ı Aç",
+  "snackLinkFailed": "Bağlantı açılamadı.",
+  "snackCallFailed": "Arama başlatılamadı.",
+
+  "footerSocial": "Sosyal",
+  "footerBuiltBy": "© 2025 Fildişi. Designed & Developed by Ali Alperen Derici",
+  "footerTwitter": "Twitter",
+  "footerLinkedIn": "LinkedIn",
+  "footerInstagram": "Instagram",
+
+  "languageTR": "Türkçe",
+  "languageEN": "English"
+}

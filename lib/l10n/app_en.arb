@@ -1,0 +1,56 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Fildişi Chocolate & Macaron Atelier",
+  "brandSubtitle": "Chocolate shop",
+
+  "navAbout": "About",
+  "navGallery": "Gallery",
+  "navContact": "Contact",
+  "navMenu": "Menu",
+
+  "homeHeadline": "Fildişi Chocolate & Macaron Atelier",
+  "homeDescription": "Handmade chocolate, bonbons, macarons, and boutique desserts in Kemalpaşa/İzmir.",
+
+  "ctaGallery": "Gallery",
+  "ctaContact": "Contact",
+  "ctaAbout": "About",
+
+  "infoAddressTitle": "Address",
+  "infoAddressBody": "Armutlu 85. Yıl Cumhuriyet, Armutlu Belediye Cd. No:45, 35737 Kemalpaşa/İzmir",
+  "infoPhoneTitle": "Phone",
+  "infoPhoneBody": "+90 534 820 48 89",
+  "infoHoursTitle": "Hours",
+  "infoHoursShort": "Mon–Sat: 12:00–21:00\nSun: Closed",
+
+  "aboutTitle": "About Us",
+  "aboutBody": "Our founder, Uğur Eskici, after receiving professional pastry and chocolate training in the United States, returned to his birthplace to realize his dream of establishing Izmir's finest chocolate and macaron atelier.\n\nAt Fildişi Chocolate & Macaron Atelier, every product is prepared by our chef's own hands with great passion and precision. We carefully select fruits from local producers and offer them to you in their most natural form, without using any additives.\n\nIn our atelier where quality, naturalness, and taste meet, every chocolate and macaron is designed to leave an unforgettable mark on your palate.",
+  "hoursTitle": "Hours",
+  "hoursLong": "Monday: 12:00–21:00\nTuesday: 12:00–21:00\nWednesday: 12:00–21:00\nThursday: 12:00–21:00\nFriday: 12:00–21:00\nSaturday: 12:00–21:00\nSunday: Closed",
+
+  "socialTitle": "Social",
+  "instagramHandle": "@fildisiatolye",
+
+  "galleryTitle": "Gallery",
+  "galleryCategoryBonbon": "Bonbons & Truffles",
+  "galleryCategoryChocolate": "Chocolate",
+  "galleryCategoryMacaron": "Macaron",
+  "galleryCategoryDessert": "Desserts",
+  "galleryCategoryShop": "Shop/Counters",
+
+  "contactTitle": "Contact",
+  "contactOpenOnMap": "Open in Maps",
+  "contactCall": "Call",
+  "contactOpenInstagram": "Open Instagram",
+  "snackLinkFailed": "Could not open the link.",
+  "snackCallFailed": "Could not start the call.",
+
+  "footerSocial": "Social",
+  "footerBuiltBy": "© 2025 Fildişi. Designed & Developed by Ali Alperen Derici",
+  "footerTwitter": "Twitter",
+  "footerLinkedIn": "LinkedIn",
+  "footerInstagram": "Instagram",
+
+  "languageTR": "Türkçe",
+  "languageEN": "English"
+}
