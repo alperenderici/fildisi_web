@@ -6,117 +6,101 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'router/app_router.dart';
 import 'ui/controllers/locale_controller.dart';
-import 'ui/controllers/theme_controller.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
+import 'ui/atelier/widgets/atelier_tokens.dart';
 
 class FildisiApp extends StatelessWidget {
   const FildisiApp({super.key});
 
-  ThemeData _buildTheme({required Brightness brightness}) {
-    // Premium Chocolate Palette
-    const primaryColor = Color(0xFF3E2723); // Deep Chocolate
-    const secondaryColor = Color(0xFFD7CCC8); // Light Cocoa
-    const accentColor = Color(0xFFC5A059); // Muted Gold
-    const lightSurfaceColor = Color(0xFFFAFAFA); // Off-white
-    const lightScaffoldColor = Color(0xFFFFFFFF); // Pure White
-
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: primaryColor,
-      brightness: brightness,
-      // Preserve the current light palette exactly; let dark derive sensible
-      // contrast values from the seed.
-      primary: brightness == Brightness.light ? primaryColor : null,
-      secondary: brightness == Brightness.light ? secondaryColor : null,
-      tertiary: brightness == Brightness.light ? accentColor : null,
-      surface: brightness == Brightness.light ? lightSurfaceColor : null,
+  ThemeData _buildAtelierTheme() {
+    const colorScheme = ColorScheme(
+      brightness: Brightness.light,
+      primary: AtelierTokens.cocoa,
+      onPrimary: AtelierTokens.ivory,
+      secondary: AtelierTokens.paper,
+      onSecondary: AtelierTokens.cocoa,
+      tertiary: AtelierTokens.gold,
+      onTertiary: AtelierTokens.cocoa,
+      error: Color(0xFFB3261E),
+      onError: Colors.white,
+      surface: AtelierTokens.ivory,
+      onSurface: AtelierTokens.cocoa,
     );
 
     final base = ThemeData(useMaterial3: true, colorScheme: colorScheme);
 
-    final scaffoldBackgroundColor = brightness == Brightness.light
-        ? lightScaffoldColor
-        : colorScheme.surface;
-
-    final appBarBackgroundColor = brightness == Brightness.light
-        ? lightScaffoldColor
-        : colorScheme.surface;
-
-    final textTheme = GoogleFonts.manropeTextTheme(base.textTheme);
-    final headlineColor = brightness == Brightness.light
-        ? primaryColor
-        : colorScheme.onSurface;
+    final sans = GoogleFonts.manropeTextTheme(base.textTheme);
+    final serif = GoogleFonts.playfairDisplayTextTheme(base.textTheme);
 
     return base.copyWith(
-      scaffoldBackgroundColor: scaffoldBackgroundColor,
-      appBarTheme: AppBarTheme(
-        backgroundColor: appBarBackgroundColor,
+      scaffoldBackgroundColor: AtelierTokens.ivory,
+      dividerColor: AtelierTokens.stone,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AtelierTokens.ivory,
+        foregroundColor: AtelierTokens.cocoa,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: colorScheme.onSurface),
       ),
-      textTheme: textTheme.copyWith(
-        displayLarge: GoogleFonts.playfairDisplay(
-          textStyle: base.textTheme.displayLarge,
-          fontWeight: FontWeight.w700,
-          color: headlineColor,
-        ),
-        displayMedium: GoogleFonts.playfairDisplay(
-          textStyle: base.textTheme.displayMedium,
-          fontWeight: FontWeight.w700,
-          color: headlineColor,
-        ),
-        headlineLarge: GoogleFonts.playfairDisplay(
-          textStyle: base.textTheme.headlineLarge,
-          fontWeight: FontWeight.w700,
-          color: headlineColor,
-        ),
-        headlineMedium: GoogleFonts.playfairDisplay(
-          textStyle: base.textTheme.headlineMedium,
-          fontWeight: FontWeight.w700,
-          color: headlineColor,
-        ),
-        titleLarge: GoogleFonts.playfairDisplay(
-          textStyle: base.textTheme.titleLarge,
+      textTheme: sans.copyWith(
+        displayLarge: serif.displayLarge?.copyWith(
           fontWeight: FontWeight.w600,
-          color: headlineColor,
+          color: AtelierTokens.cocoa,
+          letterSpacing: -0.4,
         ),
-        bodyLarge: GoogleFonts.manrope(
-          textStyle: base.textTheme.bodyLarge,
-          color: colorScheme.onSurface,
+        displayMedium: serif.displayMedium?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AtelierTokens.cocoa,
+          letterSpacing: -0.3,
+        ),
+        headlineLarge: serif.headlineLarge?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AtelierTokens.cocoa,
+        ),
+        headlineMedium: serif.headlineMedium?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AtelierTokens.cocoa,
+        ),
+        titleLarge: serif.titleLarge?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AtelierTokens.cocoa,
+        ),
+        bodyLarge: sans.bodyLarge?.copyWith(
+          color: AtelierTokens.cocoa,
+          height: 1.7,
+        ),
+        bodyMedium: sans.bodyMedium?.copyWith(
+          color: AtelierTokens.cocoaMuted,
           height: 1.6,
         ),
+        labelLarge: sans.labelLarge?.copyWith(
+          color: AtelierTokens.cocoa,
+          letterSpacing: 1.6,
+          fontWeight: FontWeight.w600,
+        ),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: GoogleFonts.manrope(
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.0,
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: AtelierTokens.cocoa,
+          foregroundColor: AtelierTokens.ivory,
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(999),
           ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.primary,
-          side: BorderSide(color: colorScheme.primary, width: 1.5),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: GoogleFonts.manrope(
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.0,
+          foregroundColor: AtelierTokens.cocoa,
+          side: const BorderSide(color: AtelierTokens.stone),
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(999),
           ),
         ),
       ),
-      cardTheme: CardThemeData(
-        elevation: 0,
-        color: colorScheme.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: colorScheme.outlineVariant),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AtelierTokens.cocoa,
         ),
       ),
     );
@@ -127,10 +111,7 @@ class FildisiApp extends StatelessWidget {
     final router = createAppRouter();
     final localeController = Get.put(LocaleController());
 
-    final themeController = Get.put(ThemeController());
-
-    final theme = _buildTheme(brightness: Brightness.light);
-    final darkTheme = _buildTheme(brightness: Brightness.dark);
+    final theme = _buildAtelierTheme();
 
     return Obx(
       () => MaterialApp.router(
@@ -146,8 +127,6 @@ class FildisiApp extends StatelessWidget {
         ),
         routerConfig: router,
         theme: theme,
-        darkTheme: darkTheme,
-        themeMode: themeController.themeMode.value,
         locale: localeController.locale.value,
         supportedLocales: const [Locale('tr'), Locale('en')],
         localizationsDelegates: [

@@ -15,13 +15,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get brandSubtitle => 'Chocolate shop';
 
   @override
-  String get navAbout => 'About';
+  String get navBonbons => 'Bonbons';
 
   @override
-  String get navGallery => 'Gallery';
+  String get navMacarons => 'Macarons';
 
   @override
-  String get navContact => 'Contact';
+  String get navGiftBoxes => 'Gift Boxes';
+
+  @override
+  String get navPhilosophy => 'Philosophy';
+
+  @override
+  String get navOrder => 'Order';
 
   @override
   String get navMenu => 'Menu';

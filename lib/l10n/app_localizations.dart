@@ -110,23 +110,35 @@ abstract class AppLocalizations {
   /// **'Chocolate shop'**
   String get brandSubtitle;
 
-  /// No description provided for @navAbout.
+  /// No description provided for @navBonbons.
   ///
   /// In en, this message translates to:
-  /// **'About'**
-  String get navAbout;
+  /// **'Bonbons'**
+  String get navBonbons;
 
-  /// No description provided for @navGallery.
+  /// No description provided for @navMacarons.
   ///
   /// In en, this message translates to:
-  /// **'Gallery'**
-  String get navGallery;
+  /// **'Macarons'**
+  String get navMacarons;
 
-  /// No description provided for @navContact.
+  /// No description provided for @navGiftBoxes.
   ///
   /// In en, this message translates to:
-  /// **'Contact'**
-  String get navContact;
+  /// **'Gift Boxes'**
+  String get navGiftBoxes;
+
+  /// No description provided for @navPhilosophy.
+  ///
+  /// In en, this message translates to:
+  /// **'Philosophy'**
+  String get navPhilosophy;
+
+  /// No description provided for @navOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get navOrder;
 
   /// No description provided for @navMenu.
   ///

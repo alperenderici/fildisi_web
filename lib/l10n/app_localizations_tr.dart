@@ -15,13 +15,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get brandSubtitle => 'Chocolate shop';
 
   @override
-  String get navAbout => 'Hakkında';
+  String get navBonbons => 'Bonbon';
 
   @override
-  String get navGallery => 'Galeri';
+  String get navMacarons => 'Makaron';
 
   @override
-  String get navContact => 'İletişim';
+  String get navGiftBoxes => 'Kutular';
+
+  @override
+  String get navPhilosophy => 'Felsefe';
+
+  @override
+  String get navOrder => 'Sipariş';
 
   @override
   String get navMenu => 'Menü';

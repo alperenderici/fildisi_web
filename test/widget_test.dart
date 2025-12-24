@@ -12,8 +12,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // Should show navigation items (TR default).
-    expect(find.text('Hakkında'), findsWidgets);
-    expect(find.text('Galeri'), findsWidgets);
-    expect(find.text('İletişim'), findsWidgets);
+    expect(find.text('Bonbon'), findsWidgets);
+    expect(find.text('Makaron'), findsWidgets);
+    expect(find.text('Kutular'), findsWidgets);
   });
 }

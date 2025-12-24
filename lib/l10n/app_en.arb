@@ -4,9 +4,11 @@
   "appTitle": "Fildişi Chocolate & Macaron Atelier",
   "brandSubtitle": "Chocolate shop",
 
-  "navAbout": "About",
-  "navGallery": "Gallery",
-  "navContact": "Contact",
+  "navBonbons": "Bonbons",
+  "navMacarons": "Macarons",
+  "navGiftBoxes": "Gift Boxes",
+  "navPhilosophy": "Philosophy",
+  "navOrder": "Order",
   "navMenu": "Menu",
 
   "homeHeadline": "Fildişi Chocolate & Macaron Atelier",

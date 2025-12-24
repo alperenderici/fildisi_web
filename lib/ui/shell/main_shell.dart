@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
 
 import '../controllers/locale_controller.dart';
-import '../controllers/theme_controller.dart';
-import '../widgets/app_footer.dart';
+import '../atelier/widgets/atelier_tokens.dart';
 
 class MainShell extends StatelessWidget {
   const MainShell({super.key, required this.child, required this.currentPath});
@@ -17,9 +16,11 @@ class MainShell extends StatelessWidget {
   List<_NavItem> _routes(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return <_NavItem>[
-      _NavItem(label: l10n.navAbout, route: '/hakkinda'),
-      _NavItem(label: l10n.navGallery, route: '/galeri'),
-      _NavItem(label: l10n.navContact, route: '/iletisim'),
+      _NavItem(label: l10n.navBonbons, route: '/bonbonlar'),
+      _NavItem(label: l10n.navMacarons, route: '/makaronlar'),
+      _NavItem(label: l10n.navGiftBoxes, route: '/hediye-kutulari'),
+      _NavItem(label: l10n.navPhilosophy, route: '/atolye-felsefesi'),
+      _NavItem(label: l10n.navOrder, route: '/siparis-iletisim'),
     ];
   }
 
@@ -32,38 +33,11 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final localeController = Get.find<LocaleController>();
-    final themeController = Get.find<ThemeController>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWide = constraints.maxWidth >= 900;
-        final logoHeight = isWide ? 80.0 : 64.0;
-        final theme = Theme.of(context);
-        final colorScheme = theme.colorScheme;
-        final isDark = theme.brightness == Brightness.dark;
-
-        final appBarGradient = LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: isDark
-              ? [
-                  colorScheme.surface,
-                  colorScheme.primary.withValues(alpha: 0.12),
-                  colorScheme.tertiary.withValues(alpha: 0.15),
-                  colorScheme.secondary.withValues(alpha: 0.08),
-                  colorScheme.primary.withValues(alpha: 0.10),
-                  colorScheme.surface.withValues(alpha: 0.95),
-                ]
-              : [
-                  colorScheme.surface,
-                  colorScheme.primary.withValues(alpha: 0.04),
-                  colorScheme.tertiary.withValues(alpha: 0.06),
-                  colorScheme.secondary.withValues(alpha: 0.03),
-                  colorScheme.primary.withValues(alpha: 0.05),
-                  colorScheme.surface.withValues(alpha: 0.98),
-                ],
-          stops: const [0.0, 0.25, 0.45, 0.65, 0.85, 1.0],
-        );
+        final logoHeight = isWide ? 54.0 : 44.0;
 
         return Scaffold(
           appBar: AppBar(
@@ -75,7 +49,15 @@ class MainShell extends StatelessWidget {
               child: const SizedBox.expand(),
             ),
             titleSpacing: 24,
-            toolbarHeight: isWide ? 90 : 70,
+            toolbarHeight: isWide ? 84 : 68,
+            scrolledUnderElevation: 0,
+            backgroundColor: AtelierTokens.ivory,
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(1),
+              child: Container(height: 1, color: AtelierTokens.stone),
+            ),
             title: InkWell(
               onTap: () => context.go('/'),
               child: Padding(
@@ -88,20 +70,12 @@ class MainShell extends StatelessWidget {
             ),
             actions: isWide
                 ? [
-                    _NavButton(
-                      label: l10n.navAbout,
-                      isSelected: _isSelected('/hakkinda'),
-                      onPressed: () => context.go('/hakkinda'),
-                    ),
-                    _NavButton(
-                      label: l10n.navGallery,
-                      isSelected: _isSelected('/galeri'),
-                      onPressed: () => context.go('/galeri'),
-                    ),
-                    _NavButton(
-                      label: l10n.navContact,
-                      isSelected: _isSelected('/iletisim'),
-                      onPressed: () => context.go('/iletisim'),
+                    ..._routes(context).map(
+                      (item) => _NavButton(
+                        label: item.label,
+                        isSelected: _isSelected(item.route),
+                        onPressed: () => context.go(item.route),
+                      ),
                     ),
                     const SizedBox(width: 16),
                     PopupMenuButton<Locale>(
@@ -118,19 +92,6 @@ class MainShell extends StatelessWidget {
                         ),
                       ],
                       icon: const Icon(Icons.language),
-                    ),
-                    Obx(
-                      () => IconButton(
-                        tooltip: themeController.isDark
-                            ? 'Light theme'
-                            : 'Dark theme',
-                        onPressed: themeController.toggle,
-                        icon: Icon(
-                          themeController.isDark
-                              ? Icons.light_mode_outlined
-                              : Icons.dark_mode_outlined,
-                        ),
-                      ),
                     ),
                     const SizedBox(width: 8),
                   ]
@@ -180,26 +141,6 @@ class MainShell extends StatelessWidget {
                             Navigator.of(context).pop();
                           },
                         ),
-                        const Divider(height: 24),
-                        Obx(
-                          () => SwitchListTile(
-                            value: themeController.isDark,
-                            onChanged: (_) {
-                              themeController.toggle();
-                              Navigator.of(context).pop();
-                            },
-                            title: Text(
-                              themeController.isDark
-                                  ? 'Light theme'
-                                  : 'Dark theme',
-                            ),
-                            secondary: Icon(
-                              themeController.isDark
-                                  ? Icons.light_mode_outlined
-                                  : Icons.dark_mode_outlined,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -248,19 +189,15 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          foregroundColor: isSelected
-              ? colorScheme.primary
-              : colorScheme.onSurface,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          foregroundColor: AtelierTokens.cocoa,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -268,19 +205,21 @@ class _NavButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                fontSize: 15,
-                letterSpacing: 0.5,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                fontSize: 13,
+                letterSpacing: 1.6,
+                color:
+                    isSelected ? AtelierTokens.cocoa : AtelierTokens.cocoaMuted,
               ),
             ),
             const SizedBox(height: 4),
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 2,
-              width: isSelected ? 20 : 0,
+              height: 4,
+              width: 4,
               decoration: BoxDecoration(
-                color: colorScheme.primary,
-                borderRadius: BorderRadius.circular(2),
+                color: isSelected ? AtelierTokens.gold : Colors.transparent,
+                shape: BoxShape.circle,
               ),
             ),
           ],

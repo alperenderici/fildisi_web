@@ -4,9 +4,11 @@
   "appTitle": "Fildişi Çikolata & Makaron Atölyesi",
   "brandSubtitle": "Chocolate shop",
 
-  "navAbout": "Hakkında",
-  "navGallery": "Galeri",
-  "navContact": "İletişim",
+  "navBonbons": "Bonbon",
+  "navMacarons": "Makaron",
+  "navGiftBoxes": "Kutular",
+  "navPhilosophy": "Felsefe",
+  "navOrder": "Sipariş",
   "navMenu": "Menü",
 
   "homeHeadline": "Fildişi Çikolata ve Makaron Atölyesi",
