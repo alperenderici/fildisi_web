@@ -41,13 +41,6 @@ class MainShell extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: DecoratedBox(
-              decoration: BoxDecoration(gradient: appBarGradient),
-              child: const SizedBox.expand(),
-            ),
             titleSpacing: 24,
             toolbarHeight: isWide ? 84 : 68,
             scrolledUnderElevation: 0,
@@ -145,23 +138,16 @@ class MainShell extends StatelessWidget {
                     ),
                   ),
                 ),
-          body: Column(
-            children: [
-              Expanded(
-                child: SelectionArea(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 220),
-                    switchInCurve: Curves.easeOutCubic,
-                    switchOutCurve: Curves.easeInCubic,
-                    child: KeyedSubtree(
-                      key: ValueKey<String>(currentPath),
-                      child: child,
-                    ),
-                  ),
-                ),
+          body: SelectionArea(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              child: KeyedSubtree(
+                key: ValueKey<String>(currentPath),
+                child: child,
               ),
-              const AppFooter(),
-            ],
+            ),
           ),
         );
       },

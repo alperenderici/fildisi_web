@@ -16,6 +16,19 @@ class AtelierHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Title(
+      title: 'Fildişi — Chocolate & Macaron Atelier',
+      color: AtelierTokens.cocoa,
+      child: const _HomeBody(),
+    );
+  }
+}
+
+class _HomeBody extends StatelessWidget {
+  const _HomeBody();
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isWide = MediaQuery.of(context).size.width >= 900;
 

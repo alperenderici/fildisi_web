@@ -10,62 +10,66 @@ class AtelierPhilosophyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          EditorialScaffold(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SectionHeader(
-                  label: 'Editorial',
-                  title: 'Atelier Philosophy',
-                  body:
-                      'Quiet precision, sculpted forms, and vivid flavor—built in small batches with intentional detail.',
-                ),
-                const SizedBox(height: AtelierTokens.space12),
-                _Chapter(
-                  title: 'Craft',
-                  body:
-                      'Every piece is finished by hand. Surfaces are polished, edges are clean, and each form is designed to feel like an object—not a dessert.',
-                  imageAsset: 'assets/images/bonbon/bonbon6.jpeg',
-                ),
-                const SizedBox(height: AtelierTokens.space16),
-                _Chapter(
-                  title: 'Ingredients',
-                  body:
-                      'Aromatic ganache, fruit reductions, quiet spice. We chase balance—where intensity remains restrained and the finish stays clean.',
-                  imageAsset: 'assets/images/bonbon/bonbon_ahududu.jpeg',
-                ),
-                const SizedBox(height: AtelierTokens.space16),
-                _Chapter(
-                  title: 'Process',
-                  body:
-                      'We work in controlled iterations: texture, aroma, finish. Each seasonal drop is measured and repeated only when it earns its place.',
-                  imageAsset: 'assets/images/bonbon/bonbon_espresso.jpeg',
-                ),
-                const SizedBox(height: AtelierTokens.space16),
-                _Chapter(
-                  title: 'Limited Production',
-                  body:
-                      'Availability is intentionally limited. Reserve early—especially for gifting and seasonal selections.',
-                  imageAsset: 'assets/images/bonbon/bonbon_box.jpeg',
-                ),
-                const SizedBox(height: AtelierTokens.space12),
-                Container(height: 1, color: AtelierTokens.stone),
-                const SizedBox(height: AtelierTokens.space6),
-                Text(
-                  'Seasonal drops are announced via Instagram.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: AtelierTokens.cocoaMuted),
-                ),
-              ],
+    return Title(
+      title: 'Philosophy — Fildişi',
+      color: AtelierTokens.cocoa,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            EditorialScaffold(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SectionHeader(
+                    label: 'Editorial',
+                    title: 'Atelier Philosophy',
+                    body:
+                        'Quiet precision, sculpted forms, and vivid flavor—built in small batches with intentional detail.',
+                  ),
+                  const SizedBox(height: AtelierTokens.space12),
+                  const _Chapter(
+                    title: 'Craft',
+                    body:
+                        'Every piece is finished by hand. Surfaces are polished, edges are clean, and each form is designed to feel like an object—not a dessert.',
+                    imageAsset: 'assets/images/bonbon/bonbon6.jpeg',
+                  ),
+                  const SizedBox(height: AtelierTokens.space16),
+                  const _Chapter(
+                    title: 'Ingredients',
+                    body:
+                        'Aromatic ganache, fruit reductions, quiet spice. We chase balance—where intensity remains restrained and the finish stays clean.',
+                    imageAsset: 'assets/images/bonbon/bonbon_ahududu.jpeg',
+                  ),
+                  const SizedBox(height: AtelierTokens.space16),
+                  const _Chapter(
+                    title: 'Process',
+                    body:
+                        'We work in controlled iterations: texture, aroma, finish. Each seasonal drop is measured and repeated only when it earns its place.',
+                    imageAsset: 'assets/images/bonbon/bonbon_espresso.jpeg',
+                  ),
+                  const SizedBox(height: AtelierTokens.space16),
+                  const _Chapter(
+                    title: 'Limited Production',
+                    body:
+                        'Availability is intentionally limited. Reserve early—especially for gifting and seasonal selections.',
+                    imageAsset: 'assets/images/bonbon/bonbon_box.jpeg',
+                  ),
+                  const SizedBox(height: AtelierTokens.space12),
+                  Container(height: 1, color: AtelierTokens.stone),
+                  const SizedBox(height: AtelierTokens.space6),
+                  Text(
+                    'Seasonal drops are announced via Instagram.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: AtelierTokens.cocoaMuted),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const MinimalFooter(),
-        ],
+            const MinimalFooter(),
+          ],
+        ),
       ),
     );
   }

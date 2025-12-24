@@ -15,42 +15,45 @@ class OrderPage extends StatelessWidget {
     final theme = Theme.of(context);
     final isWide = MediaQuery.of(context).size.width >= 900;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          EditorialScaffold(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SectionHeader(
-                  label: 'Order',
-                  title: 'Contact / Order',
-                  body:
-                      'Orders are limited. Reserve in advance—especially for gifting and seasonal selections.',
-                ),
-                const SizedBox(height: AtelierTokens.space12),
-                isWide
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: _LeftColumn(theme: theme)),
-                          const SizedBox(width: AtelierTokens.space16),
-                          Expanded(child: _RightColumn(theme: theme)),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _LeftColumn(theme: theme),
-                          const SizedBox(height: AtelierTokens.space12),
-                          _RightColumn(theme: theme),
-                        ],
-                      ),
-              ],
+    return Title(
+      title: 'Order — Fildişi',
+      color: AtelierTokens.cocoa,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            EditorialScaffold(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SectionHeader(
+                    label: 'Order',
+                    title: 'Order & Contact',
+                    body:
+                        'Limited production. Reserve in advance and share your preferred pickup date.',
+                  ),
+                  const SizedBox(height: AtelierTokens.space12),
+                  isWide
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: _LeftColumn(theme: theme)),
+                            const SizedBox(width: AtelierTokens.space16),
+                            Expanded(child: _RightColumn(theme: theme)),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            _LeftColumn(theme: theme),
+                            const SizedBox(height: AtelierTokens.space12),
+                            _RightColumn(theme: theme),
+                          ],
+                        ),
+                ],
+              ),
             ),
-          ),
-          const MinimalFooter(),
-        ],
+            const MinimalFooter(),
+          ],
+        ),
       ),
     );
   }

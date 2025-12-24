@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'atelier_tokens.dart';
+import 'grain_layer.dart';
 
 class EditorialScaffold extends StatelessWidget {
   const EditorialScaffold({
@@ -20,9 +21,20 @@ class EditorialScaffold extends StatelessWidget {
     return Container(
       color: AtelierTokens.ivory,
       alignment: Alignment.topCenter,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: AtelierTokens.maxWidth),
-        child: Padding(padding: padding, child: child),
+      child: Stack(
+        children: [
+          const Positioned.fill(
+            child: GrainLayer(),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints:
+                  const BoxConstraints(maxWidth: AtelierTokens.maxWidth),
+              child: Padding(padding: padding, child: child),
+            ),
+          ),
+        ],
       ),
     );
   }
