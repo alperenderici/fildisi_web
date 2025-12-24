@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
 
 import '../../app_links.dart';
+import '../widgets/app_footer.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -40,65 +41,73 @@ class ContactPage extends StatelessWidget {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
 
     return SingleChildScrollView(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1100),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.contactTitle,
-                  style: theme.textTheme.displayMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
+      child: Column(
+        children: [
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1100),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.contactTitle,
+                      style: theme.textTheme.displayMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    if (isDesktop)
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: _ContactInfo(
+                              l10n: l10n,
+                              phone: _phone,
+                              onOpenUrl: (url) => _openUrl(context, url),
+                              onCallPhone: (phone) =>
+                                  _callPhone(context, phone),
+                            ),
+                          ),
+                          const SizedBox(width: 48),
+                          Expanded(
+                            flex: 4,
+                            child: _HoursBlock(
+                              title: l10n.hoursTitle,
+                              hoursText: l10n.hoursLong,
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      Column(
+                        children: [
+                          _ContactInfo(
+                            l10n: l10n,
+                            phone: _phone,
+                            onOpenUrl: (url) => _openUrl(context, url),
+                            onCallPhone: (phone) => _callPhone(context, phone),
+                          ),
+                          const SizedBox(height: 32),
+                          _HoursBlock(
+                            title: l10n.hoursTitle,
+                            hoursText: l10n.hoursLong,
+                          ),
+                        ],
+                      ),
+                  ],
                 ),
-                const SizedBox(height: 48),
-                if (isDesktop)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: _ContactInfo(
-                          l10n: l10n,
-                          phone: _phone,
-                          onOpenUrl: (url) => _openUrl(context, url),
-                          onCallPhone: (phone) => _callPhone(context, phone),
-                        ),
-                      ),
-                      const SizedBox(width: 48),
-                      Expanded(
-                        flex: 4,
-                        child: _HoursBlock(
-                          title: l10n.hoursTitle,
-                          hoursText: l10n.hoursLong,
-                        ),
-                      ),
-                    ],
-                  )
-                else
-                  Column(
-                    children: [
-                      _ContactInfo(
-                        l10n: l10n,
-                        phone: _phone,
-                        onOpenUrl: (url) => _openUrl(context, url),
-                        onCallPhone: (phone) => _callPhone(context, phone),
-                      ),
-                      const SizedBox(height: 32),
-                      _HoursBlock(
-                        title: l10n.hoursTitle,
-                        hoursText: l10n.hoursLong,
-                      ),
-                    ],
-                  ),
-              ],
+              ),
             ),
           ),
-        ),
+          // Footer at bottom
+          const AppFooter(),
+        ],
       ),
     );
   }

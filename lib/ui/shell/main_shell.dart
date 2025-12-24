@@ -6,7 +6,6 @@ import 'package:fildisi_web/l10n/app_localizations.dart';
 
 import '../controllers/locale_controller.dart';
 import '../controllers/theme_controller.dart';
-import '../widgets/app_footer.dart';
 
 class MainShell extends StatelessWidget {
   const MainShell({super.key, required this.child, required this.currentPath});
@@ -38,44 +37,12 @@ class MainShell extends StatelessWidget {
       builder: (context, constraints) {
         final isWide = constraints.maxWidth >= 900;
         final logoHeight = isWide ? 80.0 : 64.0;
-        final theme = Theme.of(context);
-        final colorScheme = theme.colorScheme;
-        final isDark = theme.brightness == Brightness.dark;
-
-        final appBarGradient = LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: isDark
-              ? [
-                  colorScheme.surface,
-                  colorScheme.primary.withValues(alpha: 0.12),
-                  colorScheme.tertiary.withValues(alpha: 0.15),
-                  colorScheme.secondary.withValues(alpha: 0.08),
-                  colorScheme.primary.withValues(alpha: 0.10),
-                  colorScheme.surface.withValues(alpha: 0.95),
-                ]
-              : [
-                  colorScheme.surface,
-                  colorScheme.primary.withValues(alpha: 0.04),
-                  colorScheme.tertiary.withValues(alpha: 0.06),
-                  colorScheme.secondary.withValues(alpha: 0.03),
-                  colorScheme.primary.withValues(alpha: 0.05),
-                  colorScheme.surface.withValues(alpha: 0.98),
-                ],
-          stops: const [0.0, 0.25, 0.45, 0.65, 0.85, 1.0],
-        );
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: DecoratedBox(
-              decoration: BoxDecoration(gradient: appBarGradient),
-              child: const SizedBox.expand(),
-            ),
             titleSpacing: 24,
             toolbarHeight: isWide ? 90 : 70,
+            scrolledUnderElevation: 2,
             title: InkWell(
               onTap: () => context.go('/'),
               child: Padding(
@@ -204,23 +171,16 @@ class MainShell extends StatelessWidget {
                     ),
                   ),
                 ),
-          body: Column(
-            children: [
-              Expanded(
-                child: SelectionArea(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 220),
-                    switchInCurve: Curves.easeOutCubic,
-                    switchOutCurve: Curves.easeInCubic,
-                    child: KeyedSubtree(
-                      key: ValueKey<String>(currentPath),
-                      child: child,
-                    ),
-                  ),
-                ),
+          body: SelectionArea(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              child: KeyedSubtree(
+                key: ValueKey<String>(currentPath),
+                child: child,
               ),
-              const AppFooter(),
-            ],
+            ),
           ),
         );
       },
@@ -256,9 +216,8 @@ class _NavButton extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          foregroundColor: isSelected
-              ? colorScheme.primary
-              : colorScheme.onSurface,
+          foregroundColor:
+              isSelected ? colorScheme.primary : colorScheme.onSurface,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../controllers/gallery_controller.dart';
 import 'package:fildisi_web/l10n/app_localizations.dart';
 import '../widgets/image_caption.dart';
+import '../widgets/app_footer.dart';
 
 class GalleryPage extends StatelessWidget {
   const GalleryPage({super.key});
@@ -137,154 +138,166 @@ class GalleryPage extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SingleChildScrollView(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1200),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.galleryTitle,
-                  style: theme.textTheme.displayMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 32),
-                Obx(() {
-                  final selected = controller.selectedCategoryIndex.value;
-                  return Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: [
-                      for (var i = 0; i < categories.length; i++)
-                        ChoiceChip(
-                          label: Text(categories[i].title),
-                          selected: i == selected,
-                          onSelected: (_) => controller.selectCategory(i),
-                          labelStyle: TextStyle(
-                            color: i == selected
-                                ? theme.colorScheme.onPrimary
-                                : theme.colorScheme.onSurface,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          selectedColor: theme.colorScheme.primary,
-                          backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                            side: BorderSide(
-                              color: theme.colorScheme.primary,
-                              width: 1.5,
-                            ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                        ),
-                    ],
-                  );
-                }),
-                const SizedBox(height: 32),
-                Obx(() {
-                  final selected = controller.selectedCategoryIndex.value;
-                  final images = categories[selected].images;
-
-                  return LayoutBuilder(
-                    builder: (context, constraints) {
-                      final width = constraints.maxWidth;
-                      final crossAxisCount = width >= 1000
-                          ? 4
-                          : width >= 700
-                          ? 3
-                          : 2;
-
-                      return GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: images.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          mainAxisSpacing: 24,
-                          crossAxisSpacing: 24,
-                          childAspectRatio: 0.85,
-                        ),
-                        itemBuilder: (context, index) {
-                          final path = images[index];
-                          final caption = captionFromAssetPath(path);
-                          return InkWell(
-                            onTap: () => _openImage(context, path),
-                            borderRadius: BorderRadius.circular(16),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.05),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
+      child: Column(
+        children: [
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1200),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.galleryTitle,
+                      style: theme.textTheme.displayMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Obx(() {
+                      final selected = controller.selectedCategoryIndex.value;
+                      return Wrap(
+                        spacing: 12,
+                        runSpacing: 12,
+                        children: [
+                          for (var i = 0; i < categories.length; i++)
+                            ChoiceChip(
+                              label: Text(categories[i].title),
+                              selected: i == selected,
+                              onSelected: (_) => controller.selectCategory(i),
+                              labelStyle: TextStyle(
+                                color: i == selected
+                                    ? theme.colorScheme.onPrimary
+                                    : theme.colorScheme.onSurface,
+                                fontWeight: FontWeight.w600,
                               ),
-                              child: ClipRRect(
+                              selectedColor: theme.colorScheme.primary,
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                                side: BorderSide(
+                                  color: theme.colorScheme.primary,
+                                  width: 1.5,
+                                ),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                            ),
+                        ],
+                      );
+                    }),
+                    const SizedBox(height: 32),
+                    Obx(() {
+                      final selected = controller.selectedCategoryIndex.value;
+                      final images = categories[selected].images;
+
+                      return LayoutBuilder(
+                        builder: (context, constraints) {
+                          final width = constraints.maxWidth;
+                          final crossAxisCount = width >= 1000
+                              ? 4
+                              : width >= 700
+                                  ? 3
+                                  : 2;
+
+                          return GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: images.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: crossAxisCount,
+                              mainAxisSpacing: 24,
+                              crossAxisSpacing: 24,
+                              childAspectRatio: 0.85,
+                            ),
+                            itemBuilder: (context, index) {
+                              final path = images[index];
+                              final caption = captionFromAssetPath(path);
+                              return InkWell(
+                                onTap: () => _openImage(context, path),
                                 borderRadius: BorderRadius.circular(16),
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Hero(
-                                      tag: path,
-                                      child: Image.asset(
-                                        path,
-                                        fit: BoxFit.cover,
-                                        filterQuality: FilterQuality.high,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black
+                                            .withValues(alpha: 0.05),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
                                       ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.black.withValues(alpha: 0.7),
-                                          ],
-                                          stops: const [0.6, 1.0],
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Hero(
+                                          tag: path,
+                                          child: Image.asset(
+                                            path,
+                                            fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.high,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    if (caption.isNotEmpty)
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(
-                                            caption,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.playfairDisplay(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Colors.transparent,
+                                                Colors.black
+                                                    .withValues(alpha: 0.7),
+                                              ],
+                                              stops: const [0.6, 1.0],
                                             ),
                                           ),
                                         ),
-                                      ),
-                                  ],
+                                        if (caption.isNotEmpty)
+                                          Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Text(
+                                                caption,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style:
+                                                    GoogleFonts.playfairDisplay(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           );
                         },
                       );
-                    },
-                  );
-                }),
-              ],
+                    }),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+
+          // Footer at bottom
+          const AppFooter(),
+        ],
       ),
     );
   }

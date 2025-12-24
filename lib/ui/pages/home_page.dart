@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:fildisi_web/l10n/app_localizations.dart';
-import '../widgets/hero_carousel.dart';
+import '../widgets/app_footer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,49 +17,53 @@ class HomePage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Hero Section
+          // Hero Section - Modern asymmetric design
           Container(
-            color: theme.colorScheme.surface,
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 48 : 16,
-              vertical: isDesktop ? 32 : 16,
+            constraints: BoxConstraints(
+              minHeight: isDesktop ? 600 : 500,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  theme.colorScheme.surface,
+                  theme.colorScheme.primary.withValues(alpha: 0.03),
+                  theme.colorScheme.tertiary.withValues(alpha: 0.02),
+                ],
+              ),
             ),
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1200),
-                child: isDesktop
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(flex: 5, child: _HeroContent(l10n: l10n)),
-                          const SizedBox(width: 48),
-                          Expanded(
-                            flex: 7,
-                            child: HeroCarousel(
-                              imageAssets: const [
-                                'assets/images/tezgah.jpeg',
-                                'assets/images/tezgah0.jpeg',
-                                'assets/images/tezgah2.jpeg',
-                              ],
-                              height: 500,
+                constraints: const BoxConstraints(maxWidth: 1400),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isDesktop ? 64 : 24,
+                    vertical: isDesktop ? 80 : 48,
+                  ),
+                  child: isDesktop
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: _HeroContent(l10n: l10n),
                             ),
-                          ),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          HeroCarousel(
-                            imageAssets: const [
-                              'assets/images/tezgah.jpeg',
-                              'assets/images/tezgah0.jpeg',
-                              'assets/images/tezgah2.jpeg',
-                            ],
-                            height: 360,
-                          ),
-                          const SizedBox(height: 32),
-                          _HeroContent(l10n: l10n),
-                        ],
-                      ),
+                            const SizedBox(width: 80),
+                            Expanded(
+                              flex: 6,
+                              child: _HeroImageStack(),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            _HeroImageStack(),
+                            const SizedBox(height: 48),
+                            _HeroContent(l10n: l10n),
+                          ],
+                        ),
+                ),
               ),
             ),
           ),
@@ -106,8 +110,58 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+
+          // Footer at bottom of page content
+          const AppFooter(),
         ],
       ),
+    );
+  }
+}
+
+class _HeroImageStack extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // Main large image
+        ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: Image.asset(
+            'assets/images/tezgah.jpeg',
+            height: 450,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+        // Floating accent image
+        Positioned(
+          bottom: -30,
+          right: -30,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/images/bonbon/bonbon_box.jpeg',
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -124,33 +178,64 @@ class _HeroContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            '✨ Handcrafted Excellence',
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: theme.colorScheme.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
         Text(
           l10n.homeHeadline,
-          style: theme.textTheme.displayMedium?.copyWith(
+          style: theme.textTheme.displayLarge?.copyWith(
             height: 1.1,
-            color: theme.colorScheme.primary,
+            fontWeight: FontWeight.w800,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 24),
         Text(
           l10n.homeDescription,
           style: theme.textTheme.bodyLarge?.copyWith(
-            fontSize: 18,
-            color: theme.colorScheme.onSurface,
+            fontSize: 20,
+            height: 1.6,
+            color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 40),
         Wrap(
           spacing: 16,
           runSpacing: 16,
           children: [
-            ElevatedButton(
+            FilledButton.icon(
               onPressed: () => context.go('/galeri'),
-              child: Text(l10n.ctaGallery),
+              icon: const Icon(Icons.photo_library_outlined, size: 20),
+              label: Text(l10n.ctaGallery),
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 20,
+                ),
+              ),
             ),
-            OutlinedButton(
+            OutlinedButton.icon(
               onPressed: () => context.go('/iletisim'),
-              child: Text(l10n.ctaContact),
+              icon: const Icon(Icons.chat_bubble_outline, size: 20),
+              label: Text(l10n.ctaContact),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 20,
+                ),
+              ),
             ),
           ],
         ),

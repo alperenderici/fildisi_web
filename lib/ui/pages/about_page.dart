@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:fildisi_web/l10n/app_localizations.dart';
 import '../../app_links.dart';
+import '../widgets/app_footer.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -39,101 +40,110 @@ class AboutPage extends StatelessWidget {
     );
 
     return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(gradient: backgroundGradient),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1100),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title
-                  Text(
-                    l10n.aboutTitle,
-                    style: theme.textTheme.displayMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 48),
-
-                  // Content Section (Story + Image)
-                  if (isDesktop)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(flex: 5, child: _StoryText(l10n: l10n)),
-                        const SizedBox(width: 64),
-                        Expanded(flex: 4, child: _AboutImage()),
-                      ],
-                    )
-                  else
-                    Column(
-                      children: [
-                        _AboutImage(),
-                        const SizedBox(height: 32),
-                        _StoryText(l10n: l10n),
-                      ],
-                    ),
-
-                  const SizedBox(height: 64),
-
-                  // Instagram Section (+ Photos)
-                  _InstagramSection(
-                    handleText: l10n.instagramHandle,
-                    buttonText: l10n.contactOpenInstagram,
-                    onOpenInstagram: () =>
-                        _openUrl(context, AppLinks.instagram),
-                  ),
-
-                  const SizedBox(height: 64),
-
-                  // Hours Section
-                  _SectionTitle(l10n.hoursTitle),
-                  const SizedBox(height: 24),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(32),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: theme.colorScheme.outlineVariant,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(gradient: backgroundGradient),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      Text(
+                        l10n.aboutTitle,
+                        style: theme.textTheme.displayMedium?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (final line in l10n.hoursLong.split('\n'))
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.access_time,
-                                  size: 18,
-                                  color: theme.colorScheme.tertiary,
-                                ),
-                                const SizedBox(width: 12),
-                                Text(
-                                  line,
-                                  style: theme.textTheme.bodyLarge?.copyWith(
-                                    color: theme.colorScheme.onSurface,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      const SizedBox(height: 48),
+
+                      // Content Section (Story + Image)
+                      if (isDesktop)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(flex: 5, child: _StoryText(l10n: l10n)),
+                            const SizedBox(width: 64),
+                            Expanded(flex: 4, child: _AboutImage()),
+                          ],
+                        )
+                      else
+                        Column(
+                          children: [
+                            _AboutImage(),
+                            const SizedBox(height: 32),
+                            _StoryText(l10n: l10n),
+                          ],
+                        ),
+
+                      const SizedBox(height: 64),
+
+                      // Instagram Section (+ Photos)
+                      _InstagramSection(
+                        handleText: l10n.instagramHandle,
+                        buttonText: l10n.contactOpenInstagram,
+                        onOpenInstagram: () =>
+                            _openUrl(context, AppLinks.instagram),
+                      ),
+
+                      const SizedBox(height: 64),
+
+                      // Hours Section
+                      _SectionTitle(l10n.hoursTitle),
+                      const SizedBox(height: 24),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(32),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: theme.colorScheme.outlineVariant,
                           ),
-                      ],
-                    ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            for (final line in l10n.hoursLong.split('\n'))
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_time,
+                                      size: 18,
+                                      color: theme.colorScheme.tertiary,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      line,
+                                      style:
+                                          theme.textTheme.bodyLarge?.copyWith(
+                                        color: theme.colorScheme.onSurface,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
+
+          // Footer at bottom
+          const AppFooter(),
+        ],
       ),
     );
   }
@@ -466,9 +476,9 @@ class _SectionTitle extends StatelessWidget {
     return Text(
       title,
       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold,
-      ),
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
+          ),
     );
   }
 }
